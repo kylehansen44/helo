@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 
 
@@ -11,7 +12,22 @@ class Dashboard extends Component {
         }
     }
 
-    
+    componentDidMount() {
+        this.props.getUser().catch((err) => {
+            this.props.history.push('/')
+        })
+        this.getPosts()
+    }
+
+    getPosts = () => {
+        axios.get('/api/posts').then((res) => {
+            this.setState({
+                posts: res.data
+            })
+        })
+    }
+
+
 
 
 
